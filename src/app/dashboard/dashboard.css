@@ -1,0 +1,50 @@
+/* ✅ NAV BUTTONS (EXCEPT LOGOUT) */
+header nav button:not(.logout-btn) {
+  position: relative;
+  background: none;
+  border: none;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 6px 0;
+  transition: color 0.3s ease;
+}
+
+/* ✅ TEXT COLOR CHANGE */
+header nav button:not(.logout-btn):hover {
+  color: #fde047; /* yellow */
+}
+
+/* ✅ UNDERLINE */
+header nav button:not(.logout-btn)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background-color: #fde047;
+  transition: width 0.3s ease;
+}
+
+/* ✅ UNDERLINE ANIMATE */
+header nav button:not(.logout-btn):hover::after {
+  width: 100%;
+}
+
+/* ✅ LOGOUT BUTTON DEFAULT */
+.logout-btn {
+  background-color: #ef4444; /* red */
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* ✅ LOGOUT HOVER → BLACK */
+.logout-btn:hover {
+  background-color: #000000; /* black */
+  color: white;
+}

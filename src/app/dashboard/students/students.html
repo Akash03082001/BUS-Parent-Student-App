@@ -1,0 +1,106 @@
+<div class="flex justify-center">
+
+  <div class="bg-white p-6 rounded shadow max-w-4xl text-gray-900">
+
+  <h2 class="text-xl font-bold mb-4">My Children</h2>
+
+  <!-- ✅ LOADING / ERROR / DATA -->
+  <ng-container *ngIf="!loading; else pending">
+
+    <!-- DEBUG -->
+    <div class="text-xs text-gray-500 mb-2">
+      <!-- for checking purpose -->
+      <!-- students.length = {{ students.length }} -->
+    </div>
+
+    <!-- NO STUDENTS -->
+    <div *ngIf="students.length === 0">
+      <p class="text-gray-600 mb-4">
+        No students found for this parent.
+      </p>
+      <button
+        class="bg-blue-600 text-white px-4 py-2 rounded"
+        (click)="goToAddStudent()">
+        Add Child
+      </button>
+    </div>
+
+    <!-- STUDENTS TABLE -->
+    <table *ngIf="students.length > 0"
+           class="w-full border border-gray-300 mt-4">
+
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="p-2 border">Name</th>
+          <th class="p-2 border">Gender</th>
+          <th class="p-2 border">Age</th>
+          <th class="p-2 border">DOB</th>
+          <th class="p-2 border">Age Group</th>
+          <!-- ✅ ADDED COLUMN -->
+          <th class="p-2 border text-center">Actions</th>
+          <!-- For Report -->
+          <th class="p-2 border">Report</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let s of students">
+          <td class="p-2 border">{{ s.name }}</td>
+          <td class="p-2 border">{{ s.gender }}</td>
+          <td class="p-2 border">{{ s.age }}</td>
+          <td class="p-2 border">{{ s.dateOfBirth }}</td>
+          <td class="p-2 border">{{ s.ageGroupLabel }}</td>
+
+          <!-- ✅ ADDED ACTION BUTTONS -->
+          <td class="p-2 border text-center space-x-2">
+           
+  <button
+  class="bg-blue-600 text-white px-3 py-1 rounded
+         hover:bg-blue-700 hover:scale-105
+         transition-all duration-200"
+  (click)="editChild(s.id)">
+  Edit
+</button>
+
+
+           
+<button
+  class="bg-red-600 text-white px-3 py-1 rounded
+         hover:bg-red-700 hover:scale-105
+         transition-all duration-200"
+  (click)="confirmDelete(s.id, s.name)">
+  Delete
+</button>
+
+          </td>
+
+          
+  <td class="p-2 border text-center">
+  
+<button
+  class="text-red-600 text-xl
+         hover:text-red-800 hover:scale-125
+         transition-all duration-200"
+  title="Download Report"
+  (click)="downloadReport(s.id)">
+  📄
+</button>
+
+</td>
+
+        </tr>
+      </tbody>
+    </table>
+
+  </ng-container>
+
+  <!-- ✅ LOADING / ERROR FALLBACK -->
+  <ng-template #pending>
+    <p class="text-gray-600">Loading students…</p>
+  </ng-template>
+
+</div>
+
+</div>
+
+

@@ -1,0 +1,29 @@
+<div class="min-h-screen flex flex-col bg-gray-100 rounded-none">
+
+  <header class="bg-blue-600 text-white px-6 py-4 flex justify-between items-center rounded-none">
+    <h1 class="text-xl font-bold">
+      Parent Portal | Welcome, {{ name }}!
+    </h1>
+
+    <nav class="flex items-center gap-6">
+      <button type="button" (click)="goHome()">Home</button>
+      <button type="button" (click)="goProfile()">Profile</button>
+      <button type="button" (click)="goStudents()">View Students</button>
+      <button type="button" (click)="goAddStudent()">Add Child</button>
+
+      <button
+        type="button"
+        (click)="logout()"
+        class="logout-btn bg-red-500 text-white px-4 py-2 font-semibold rounded">
+        Logout
+      </button>
+    </nav>
+  </header>
+
+  <main class="flex-1 flex justify-center pt-6 rounded-none">
+    <div class="w-full max-w-6xl">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+
+</div>

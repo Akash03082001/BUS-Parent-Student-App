@@ -1,0 +1,92 @@
+<div class="max-w-5xl mx-auto mt-6">
+
+  <!-- HEADER -->
+  <div class="mb-6">
+    <h2 class="text-2xl font-semibold text-gray-800">
+      Manage Child Details
+    </h2>
+    <p class="text-gray-500 text-sm">
+      Select a child below to update or delete their record.
+    </p>
+  </div>
+
+  <!-- CHILD INFO CARD -->
+  <div class="bg-white rounded-lg shadow p-6 mb-6">
+
+    <h3 class="text-lg font-medium text-gray-800 mb-4">
+      Editing Child: <span class="text-blue-600">{{ student.name }}</span>
+    </h3>
+
+    <form (ngSubmit)="confirmUpdate()" #editForm="ngForm">
+
+      <!-- NAME -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">
+          Name
+        </label>
+        <input
+          type="text"
+          required
+          name="name"
+          [(ngModel)]="student.name"
+          class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500"/>
+      </div>
+
+      <!-- DOB -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">
+          Date of Birth
+        </label>
+        <input
+          type="date"
+          required
+          name="dateOfBirth"
+          [(ngModel)]="student.dateOfBirth"
+          class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500"/>
+      </div>
+
+      <!-- GENDER -->
+      <div class="mb-5">
+        <label class="block text-sm font-medium text-gray-700 mb-1">
+          Gender
+        </label>
+        <select
+          required
+          name="gender"
+          [(ngModel)]="student.gender"
+          class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500">
+          <option value="">Select gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+
+      <!-- ERROR -->
+      <div *ngIf="errorMessage" class="text-red-600 text-sm mb-4">
+        {{ errorMessage }}
+      </div>
+
+      <!-- ACTION BUTTONS -->
+      <div class="flex justify-between gap-4">
+
+        <!-- UPDATE -->
+        <div class="flex gap-3">
+          <button
+            type="button"
+            (click)="cancel()"
+            class="px-4 py-2 rounded border bg-gray-100 hover:bg-gray-200">
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            [disabled]="editForm.invalid || loading"
+            class="px-6 py-2 rounded bg-blue-600 text-white hover:bg-blue-700">
+            {{ loading ? 'Updating...' : 'Update' }}
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
