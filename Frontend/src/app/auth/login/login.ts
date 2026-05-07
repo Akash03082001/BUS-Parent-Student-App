@@ -3,7 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../auth';
 import { CommonModule } from '@angular/common';
-
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -18,22 +18,20 @@ export class LoginComponent {
   errorMessage = '';
 
   private errorTimer: any = null;
-  private errorActive = false; // ✅ prevents re-trigger
-
+  
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
-  
-login(form:any): void {
-  console.log('Login clicked');
-  console.log('Email:', this.email);
-  console.log('Password:', this.password);
-
+login(): void {
   this.authService.login(this.email, this.password).subscribe({
     next: (res) => {
-      console.log('Login response from backend:', res);
+      if (!res?.token) {
+        this.showTimedError('Invalid email or password');
+        return;
+      }
 
       localStorage.setItem('token', res.token);
       localStorage.setItem('email', res.email);
@@ -41,38 +39,24 @@ login(form:any): void {
 
       this.router.navigate(['/dashboard']);
     },
-    error: (err) => {
-      console.error('Login error:', err);
-      
-    if (!this.errorActive) {
-          this.showTimedError('Invalid email or password');
-        }
-
+    error: () => {
+      this.showTimedError('Invalid email or password');
     }
   });
 }
 
- 
-// ✅ show error for few seconds
-  private showTimedError(message: string): void {
-    this.errorActive = true;
-    this.errorMessage = message;
+private showTimedError(message: string): void {
+  clearTimeout(this.errorTimer);
 
-    if (this.errorTimer) {
-      clearTimeout(this.errorTimer);
-    }
+  this.errorMessage = message;
+  this.cdr.detectChanges(); // ✅ force render immediately
 
-    this.errorTimer = setTimeout(() => {
-      this.clearError();
-    }, 3000); // ⬅️ disappears after 3 seconds
-  }
-
-  
-// ✅ reset error state
-  private clearError(): void {
+  this.errorTimer = setTimeout(() => {
     this.errorMessage = '';
-    this.errorActive = false;
-    this.errorTimer = null;
-  }
+    this.cdr.detectChanges(); // ✅ force render after timeout
+  }, 3000);
+}
+
+
 }
 

@@ -8,16 +8,15 @@
       Parent Login
     </h2>
 
-   
-<form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+   <form #loginForm="ngForm" (ngSubmit)="login()">
 
   <input
     [(ngModel)]="email"
     name="email"
     type="text"
-    placeholder="Email" 
+    placeholder="Email"
     required
-    class="w-full mb-3 p-2 border rounded focus:ring-2 focus:ring-blue-400" />
+    class="w-full mb-3 p-2 border rounded" />
 
   <input
     [(ngModel)]="password"
@@ -25,11 +24,13 @@
     type="password"
     placeholder="Password"
     required
-    class="w-full mb-4 p-2 border rounded focus:ring-2 focus:ring-blue-400" />
+    class="w-full mb-4 p-2 border rounded" />
 
   <button
     type="submit"
-    class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
+    class="w-full bg-blue-600 text-white p-2 rounded
+           hover:bg-blue-700 disabled:opacity-50"
+    [disabled]="loginForm.invalid">
     Login
   </button>
 
@@ -38,6 +39,7 @@
   </p>
 
 </form>
+
 
 
     <!-- Link to Register -->

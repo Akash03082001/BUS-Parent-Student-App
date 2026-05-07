@@ -16,7 +16,7 @@
     </h2>
 
    
-<form #registerForm="ngForm" (ngSubmit)="register()">
+<form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
 
   <!-- Name -->
 <input
@@ -46,13 +46,13 @@
   #emailModel="ngModel"
   required
   email
-  pattern="^[a-z][a-z0-9._%+-]*@[a-z0-9.-]+\.(com|in|org)$"
+  pattern="^[a-z][a-z0-9._%+\-]*@[a-z0-9.-]+\.(com|in|org)$"
   placeholder="Email (.com, .in, .org)"
   class="w-full mb-1 p-2 border rounded"
 />
 
 <p
-  *ngIf="emailModel.invalid && registerForm.submitted"
+  *ngIf="emailModel.invalid && (emailModel.touched || registerForm.submitted)"
   class="text-red-500 text-sm mb-2"
 >
 Email must:
@@ -107,7 +107,6 @@ Email must:
     type="submit"
     [disabled]="isSubmitting"
     class="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700">
-    Register
     {{ isSubmitting ? 'Registering...' : 'Register' }}
   </button>
 

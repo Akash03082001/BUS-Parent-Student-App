@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private cdr: ChangeDetectorRef   // ✅ IMPORTANT
+    private cdr: ChangeDetectorRef   // ✅ REQUIRED
   ) {}
 
   ngOnInit(): void {
@@ -43,27 +43,27 @@ export class ProfileComponent implements OnInit {
   fetchProfile(): void {
     this.loading = true;
 
-    const token = localStorage.getItem('token');
-    if (!token) {
-      this.errorMessage = 'No token found';
-      this.loading = false;
-      return;
-    }
-
-    this.http.get<any>(this.API_URL, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }).subscribe({
+    this.http.get<any>(this.API_URL).subscribe({
       next: (data) => {
-        this.profile = data;
+        // ✅ Log by VALUE, not reference (important)
+        console.log('PROFILE DATA RECEIVED (snapshot):', JSON.stringify(data));
+
+        if (!data || data.id == null) {
+          console.warn('Ignoring invalid profile response');
+          this.loading = false;
+          return;
+        }
+
+        // ✅ Assign state
+        this.profile = { ...data };
         this.originalProfile = { ...data };
         this.loading = false;
 
-        // ✅ FORCE RE-RENDER AFTER ASYNC UPDATE
+        // ✅ FORCE UI UPDATE (THIS FIXES IT)
         this.cdr.detectChanges();
       },
-      error: () => {
+      error: (err) => {
+        console.error('PROFILE API FAILED', err);
         this.errorMessage = 'Failed to load profile';
         this.loading = false;
         this.cdr.detectChanges();
@@ -77,24 +77,27 @@ export class ProfileComponent implements OnInit {
   }
 
   save(): void {
-    const token = localStorage.getItem('token');
-
     this.http.put<any>(
       this.API_URL,
       {
         name: this.profile.name,
         email: this.profile.email
-      },
-      {
-        headers: { Authorization: `Bearer ${token}` }
       }
     ).subscribe({
       next: (updated) => {
-        this.profile = updated;
+        console.log('PROFILE UPDATED', updated);
+
+        this.profile = { ...updated };
         this.originalProfile = { ...updated };
         this.isEdit = false;
+
+        // ✅ Update header name
         localStorage.setItem('name', updated.name);
+
         this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('UPDATE FAILED', err);
       }
     });
   }

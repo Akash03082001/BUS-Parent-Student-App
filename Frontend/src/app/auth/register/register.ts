@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router,RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth';
 
@@ -36,7 +36,12 @@ constructor(
   ) {}
 
   
-register(): void {
+register(form: NgForm): void {
+  
+if (form.invalid) {
+    return; // ⛔ stop submission
+  }
+
     this.errorMessage = '';
     this.successMessage = '';
     this.isSubmitting = true;
@@ -55,21 +60,15 @@ register(): void {
       error: (err) => {
         console.error(err);
         this.isSubmitting = false;
+       
+ if (err.status === 409) {
         this.errorMessage = 'Email already registered';
+      } else {
+        this.errorMessage = 'Registration failed';
+      }
+
       }
     });
   }
-
-
   
 }
-//For testing:
-// register(form: any) {
-//     if (form.invalid) {
-//       // ✅ Do nothing here
-//       // Field-level errors already guide the user
-//       return;
-//     }
-
-//     alert('Registration successful ✅');
-//   }

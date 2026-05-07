@@ -21,7 +21,7 @@ export const appConfig: ApplicationConfig = {
       withInterceptorsFromDi()
     ),
 
-    { provide: RouteReuseStrategy, useClass: NoReuseStrategy },
+    // { provide: RouteReuseStrategy, useClass: NoReuseStrategy },
 
     // ✅ Interceptor registration (NOW it works)
     {
@@ -31,3 +31,4 @@ export const appConfig: ApplicationConfig = {
     }
   ]
 };
+
