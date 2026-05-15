@@ -1,0 +1,94 @@
+.student-page {
+  padding: 20px;
+}
+
+/* SEARCH BAR */
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.search-bar button {
+  padding: 10px 20px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+
+/* TABLE */
+.table-container {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* HEADER */
+.table-header {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  background: #dbeafe;
+  padding: 12px;
+  font-weight: 600;
+}
+
+/* ROW */
+.table-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  padding: 12px;
+  border-top: 1px solid #eee;
+}
+
+/* ACTION */
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+.edit-btn:hover {
+  background: #1e40af;
+}
+
+/* PAGINATION */
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  background: #e5e7eb;
+}
+
+.loading {
+  margin: 20px;
+  font-weight: bold;
+  color: #2563eb;
+}
+.no-data{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+}

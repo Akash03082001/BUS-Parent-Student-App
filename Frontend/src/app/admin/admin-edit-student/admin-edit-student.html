@@ -1,0 +1,48 @@
+<div class="form-container">
+
+  <h2>Edit Student</h2>
+
+  <form (ngSubmit)="updateStudent()">
+
+    <!-- NAME -->
+    <input
+      [(ngModel)]="student.name"
+      name="name"
+      placeholder="Student Name"
+      required
+    />
+
+    <!-- DOB -->
+    <input
+      [(ngModel)]="student.dateOfBirth"
+      name="dob"
+      type="date"
+      (change)="calculateAge()"   ✅ AUTO UPDATE AGE
+      required
+    />
+
+    <!-- AGE (READ ONLY) -->
+    <input
+      [(ngModel)]="student.age"
+      name="age"
+      type="number"
+      placeholder="Age"
+      readonly   ✅ DISABLE MANUAL EDIT
+    />
+
+    <!-- GENDER -->
+    <select [(ngModel)]="student.gender" name="gender" required>
+      <option value="">Select Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+    </select>
+
+    <!-- BUTTONS -->
+    <div class="btn-group">
+      <button type="button" class="cancel-btn" (click)="cancel()">Cancel</button>
+      <button type="submit" class="update-btn">Update</button>
+    </div>
+
+  </form>
+
+</div>

@@ -1,0 +1,204 @@
+/* ===========================
+   GLOBAL LAYOUT
+   =========================== */
+
+.layout {
+  display: flex;
+  height: 100vh;  
+  font-family: Arial, sans-serif;
+}
+
+/* ===========================
+   SIDEBAR
+   =========================== */
+
+.sidebar {
+  width: 230px;
+  background: #1f2937;
+  color: white;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+/* Divider line */
+.line {
+  height: 2px;
+  background: #374151;
+  margin: 15px 0;
+  border-radius: 2px;
+}
+
+/* Sidebar menu */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 12px 0;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.sidebar li:hover {
+  background: #374151;
+  color: #60a5fa;
+}
+
+/* ===========================
+   CONTENT AREA
+   =========================== */
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* ===========================
+   NAVBAR
+   =========================== */
+
+.navbar {
+  height: 60px;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Welcome text */
+.navbar .left {
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Buttons */
+.navbar .right button {
+  margin-left: 10px;
+  padding: 7px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+
+/* Edit Profile Button */
+.navbar .right button:first-child {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.navbar .right button:first-child:hover {
+  background: #d1d5db;
+  transform: translateY(-1px);
+}
+
+/* Logout Button */
+.navbar .right button:last-child {
+  background: #ef4444;
+  color: white;
+}
+
+.navbar .right button:last-child:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+/* ===========================
+   PAGE CONTENT
+   =========================== */
+
+.page {
+  flex: 1;
+  padding: 5px;
+  background: #f3f4f6;
+  overflow-y: auto;
+  
+height: calc(100vh - 60px);  /* ✅ subtract navbar */
+  overflow: hidden; 
+
+}
+
+/* ===========================
+   DASHBOARD CARDS
+   =========================== */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+/* Card text */
+.card h4 {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+
+.value {
+  font-size: 26px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* ===========================
+   CHART SECTION
+   =========================== */
+
+.chart-box {
+  margin-top: 30px;
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  width: 420px;
+}
+
+.chart-box h3 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* ===========================
+   RESPONSIVE
+   =========================== */
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+
+  .layout {
+    flex-direction: column;
+  }
+
+  .chart-box {
+    width: 100%;
+  }
+}

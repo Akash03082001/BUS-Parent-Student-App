@@ -2,15 +2,27 @@
 
 @import 'tailwindcss';
 
+/* ✅ RESET EVERYTHING PROPERLY */
+* {
+  box-sizing: border-box;
+}
 
-/* Remove browser defaults */
+/* ✅ FULL VIEWPORT GUARANTEE */
 html,
 body {
   width: 100%;
   height: 100%;
   margin: 0;
-  overflow-x: hidden;
-  background-color: #f3f4f6;
+  padding: 0;
+  overflow: hidden; /* ✅ removes outer white gaps */
+  background: transparent;
+}
+
+/* ✅ CRITICAL: Angular root container */
+app-root {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 

@@ -1,0 +1,39 @@
+<div class="layout">
+
+  <!-- ✅ SIDEBAR -->
+  <div class="sidebar">
+    <h2>Admin</h2>
+<div class="line"></div>
+
+    <ul>
+      <li routerLink="/admin/dashboard">🏠 Home</li>
+      <li routerLink="/admin/parents">👨‍👩‍👧 Parents</li>
+      <li routerLink="/admin/students">🎓 Students</li>
+    </ul>
+  </div>
+
+  <!-- ✅ RIGHT SIDE -->
+  <div class="content">
+
+    <!-- ✅ NAVBAR -->
+    <div class="navbar">
+
+      <div class="left">
+        Welcome, {{ adminName }} 👤
+      </div>
+
+      <div class="right">
+        <button (click)="editProfile()">Edit Profile</button>
+        <button (click)="logout()">Logout</button>
+      </div>
+
+    </div>
+
+    <!-- ✅ MAIN CONTENT -->
+    <div class="page">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+
+</div>

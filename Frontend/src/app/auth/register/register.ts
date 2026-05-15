@@ -3,6 +3,7 @@ import { Router,RouterModule } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-register',
@@ -32,7 +33,8 @@ export class RegisterComponent {
   
 constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   
@@ -49,9 +51,15 @@ if (form.invalid) {
     this.authService.register(this.name, this.email, this.password).subscribe({
       next: () => {
         this.isSubmitting=false;
-        
-      // ✅ ALERT MESSAGE
-      alert('✅ Account created successfully! Please login.');
+        this.errorMessage = '';
+      // // ✅ ALERT MESSAGE
+      // alert('✅ Account created successfully! Please login.');
+
+      
+ // ✅ SET MESSAGE INSTEAD OF ALERT
+      this.successMessage = '✅ Account created successfully! Redirecting to login...';
+      this.cdr.detectChanges();
+
 
         setTimeout(() => {
           this.router.navigate(['/login']);
@@ -66,6 +74,11 @@ if (form.invalid) {
       } else {
         this.errorMessage = 'Registration failed';
       }
+
+      
+ // ✅ FORCE UI UPDATE
+  this.cdr.detectChanges();
+
 
       }
     });

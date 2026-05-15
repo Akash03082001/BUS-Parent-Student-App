@@ -1,0 +1,185 @@
+/* ✅ FORCE THE ANGULAR COMPONENT ITSELF TO FILL THE SCREEN */
+:host {
+  position: fixed;
+  inset: 0;
+  display: block;
+}
+/* ================================
+   PAGE BASE
+   ================================ */
+
+.split-page {
+ position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* ================================
+   BACKGROUND HALVES
+   ================================ */
+
+.left-section,
+.right-section {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+}
+
+.left-section {
+  left: 0;
+  background-color: #ffffff;
+}
+
+.right-section {
+  right: 0;
+  background-color: #2563eb;
+}
+
+/* ================================
+   CENTER WRAPPER
+   ================================ */
+
+.card-wrapper {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* background is inert */
+}
+
+/* ================================
+   CARD
+   ================================ */
+
+.register-card {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 420px;
+  padding: 2.2rem;
+  border-radius: 14px;
+
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.18);
+
+  pointer-events: auto; /* card remains clickable */
+  z-index: 2;
+}
+
+/* ================================
+   TITLE
+   ================================ */
+
+.title {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1.8rem;
+}
+
+/* ================================
+   INPUTS
+   ================================ */
+
+.input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 0.95rem;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* ================================
+   PASSWORD
+   ================================ */
+
+.password-wrapper {
+  position: relative;
+}
+
+.toggle-btn {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* ================================
+   BUTTON
+   ================================ */
+
+.submit-btn {
+  width: 100%;
+  margin-top: 0.6rem;
+  padding: 0.8rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #1e40af;
+}
+
+/* ================================
+   FOOTER
+   ================================ */
+
+.login-text {
+  margin-top: 1.4rem;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.login-link {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ================================
+   MOBILE RESPONSIVE
+   ================================ */
+
+@media (max-width: 768px) {
+  .left-section {
+    display: none;
+  }
+
+  .right-section {
+    width: 100%;
+    left: 0;
+  }
+}
+/* FORCE ERROR TEXT TO RED */
+.error-text,
+.error-message {
+  color: #dc2626 !important;
+}
+
+/* Optional: stronger visibility */
+.error-text {
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.error-message {
+  font-size: 14px;
+  margin-top: 12px;
+  text-align: center;
+}

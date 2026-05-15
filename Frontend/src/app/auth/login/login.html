@@ -1,58 +1,72 @@
-<div class="min-h-screen flex items-center justify-center bg-gray-100">
-  <div
-    class="bg-white p-6 rounded shadow w-full max-w-sm mx-4
-           transform transition-all duration-500 ease-out
-           hover:scale-105"
-  >
-    <h2 class="text-xl font-bold mb-4 text-center">
-      Parent Login
-    </h2>
+<div class="split-page">
 
-   <form #loginForm="ngForm" (ngSubmit)="login()">
+  <!-- BACKGROUND SPLIT -->
+  <div class="left-panel"></div>
+  <div class="right-panel"></div>
 
-  <input
-    [(ngModel)]="email"
-    name="email"
-    type="text"
-    placeholder="Email"
-    required
-    class="w-full mb-3 p-2 border rounded" />
+  <!-- CENTER CARD -->
+  <div class="card-wrapper">
+    <div class="login-card">
 
-  <input
-    [(ngModel)]="password"
-    name="password"
-    type="password"
-    placeholder="Password"
-    required
-    class="w-full mb-4 p-2 border rounded" />
+      <h2 class="title">
+        {{useType === 'PARENT' ? 'Parent Login' : 'Admin Login'}}
+      </h2>
 
-  <button
-    type="submit"
-    class="w-full bg-blue-600 text-white p-2 rounded
-           hover:bg-blue-700 disabled:opacity-50"
-    [disabled]="loginForm.invalid">
-    Login
-  </button>
+      <div class="role-toggle">
+        <button 
+        type="button"
+        [class.active]="useType === 'PARENT'"
+        (click)="setRole('PARENT')">
+        Parent</button>
 
-  <p *ngIf="errorMessage" class="text-red-500 text-sm mt-3 text-center">
-    {{ errorMessage }}
-  </p>
+        <button
+        type="button"
+        [class.active]="useType === 'ADMIN'"
+        (click)="setRole('ADMIN')">
+        Admin</button>
+      </div>
 
-</form>
+      <form #loginForm="ngForm" (ngSubmit)="login()">
 
+        <input
+          [(ngModel)]="email"
+          name="email"
+          type="text"
+          placeholder="Email"
+          required
+          class="input"
+        />
 
+        <input
+          [(ngModel)]="password"
+          name="password"
+          type="password"
+          placeholder="Password"
+          required
+          class="input"
+        />
 
-    <!-- Link to Register -->
-    <p class="mt-5 text-sm text-center text-gray-600 dark:text-gray-300">
-      New user?
-      <a
-        routerLink="/register"
-        class="text-green-600 dark:text-green-400
-               hover:underline font-medium"
-      >
-        Register here
-      </a>
-    </p>
+        <button
+          type="submit"
+          class="submit-btn"
+          [disabled]="loginForm.invalid">
+          Login
+        </button>
 
+        <p *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </p>
+
+      </form>
+
+      <p class="footer-text">
+        New Parent?
+        <a routerLink="/register" class="footer-link">
+          Register here
+        </a>
+      </p>
+
+    </div>
   </div>
+
 </div>

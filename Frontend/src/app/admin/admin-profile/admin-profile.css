@@ -1,0 +1,82 @@
+/* ===========================
+   FORM CONTAINER
+   =========================== */
+
+.form-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* ===========================
+   INPUTS
+   =========================== */
+
+input {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* ===========================
+   BUTTON GROUP
+   =========================== */
+
+.btn-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;  /* ✅ left & right */
+  margin-top: 10px;
+}
+
+/* ===========================
+   UPDATE BUTTON (BLUE)
+   =========================== */
+
+.update-btn {
+  background-color: #2563eb;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.update-btn:hover {
+  background-color: #1e40af;
+}
+
+/* ===========================
+   CANCEL BUTTON (RED)
+   =========================== */
+
+.cancel-btn {
+  background-color: #ef4444;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #dc2626;
+}

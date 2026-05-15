@@ -3,18 +3,31 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { StudentService } from '../../services/studentService';
 import { ChangeDetectorRef } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-students',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './students.html',
+  styleUrls:['./students.css']
 })
 export class StudentsComponent implements OnInit{
 
   // ✅ LOCAL ARRAY (NOT Observable)
   loading = true;
   students: any[] = [];
+  criteria: any = {};
+
+  
+  // ✅ Pagination state
+  page = 0;
+  size = 3;
+  totalPages = 0;
+
+  sortField = 'id';
+  sortDirection: 'asc' | 'desc' = 'asc';
+
 
   constructor(
     private studentService: StudentService,
@@ -25,12 +38,20 @@ export class StudentsComponent implements OnInit{
      this.loadStudents();
   }
 
+
   loadStudents(): void {
-    this.loading = true
-    this.studentService.getMyStudents().subscribe({
+    this.loading = true;
+
+    this.studentService.getMyStudents(
+      this.page,
+      this.size,
+      this.criteria.name,
+      this.sortField,
+      this.sortDirection
+    ).subscribe({
       next: (res) => {
-        console.log('Students loaded:', res); // ✅ debug
-        this.students = res;
+        this.students = res.content;
+        this.totalPages = res.totalPages;
         this.loading = false;
         this.cdr.detectChanges();
       },
@@ -42,6 +63,25 @@ export class StudentsComponent implements OnInit{
       }
     });
   }
+
+
+  
+// ✅ Pagination actions
+  nextPage(): void {
+    if (this.page < this.totalPages - 1) {
+      this.page++;
+      this.loadStudents();
+    }
+  }
+
+  prevPage(): void {
+    if (this.page > 0) {
+      this.page--;
+      this.loadStudents();
+    }
+  }
+
+
 
   goToAddStudent(): void {
     this.router.navigate(['/dashboard/addStudent']);
@@ -62,7 +102,7 @@ export class StudentsComponent implements OnInit{
         this.loadStudents(); // ✅ refresh UI
       },
       error: (err) => {
-        alert('Delete failed ❌');
+        alert('Delete failed ❌, Contact your Admin 👤');
         console.error(err);
       }
     });
@@ -81,11 +121,21 @@ downloadReport(childId: number): void {
       window.URL.revokeObjectURL(url);
     },
     error: () => {
-      alert('Failed to download report');
+      alert('Failed to download report, Contact Admin 👤');
     }
   });
 }
 
+sortBy(field: string): void {
+  if (this.sortField === field) {
+    this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+  } else {
+    this.sortField = field;
+    this.sortDirection = 'asc';
+  }
+  this.page = 0;
+  this.loadStudents();
+}
 
 
 }

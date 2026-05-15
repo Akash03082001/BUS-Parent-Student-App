@@ -1,5 +1,5 @@
 import { ApplicationConfig } from '@angular/core';
-import { provideRouter,withHashLocation } from '@angular/router';
+import { provideRouter,withHashLocation, withRouterConfig } from '@angular/router';
 import { routes } from './app.routes';
 import { RouteReuseStrategy } from '@angular/router';
 import { NoReuseStrategy } from './app/no-reuse.strategy/no-reuse.strategy';
@@ -14,7 +14,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes,withHashLocation()),
+    provideRouter(routes,withHashLocation(),
+  withRouterConfig({onSameUrlNavigation:'reload'})),
 
     // ✅ Required for HttpClient in standalone apps
     provideHttpClient(

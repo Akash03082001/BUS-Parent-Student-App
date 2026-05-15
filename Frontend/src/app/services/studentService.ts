@@ -7,13 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class StudentService {
 
-  private readonly API_URL =
-    'http://localhost:8080/api/parent/students';
-
-    
-// ✅ Absolute APIs (edit / delete / view single)
-  private readonly BASE_API =
-    'http://localhost:8080';
+  private readonly BASE_URL = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {}
 
@@ -25,72 +19,91 @@ export class StudentService {
     });
   }
 
-  addStudent(student: {
-    name: string;
-    gender: string;
-    dateOfBirth: string;
-  }): Observable<any> {
+  /* ✅ ADD STUDENT */
+  addStudent(student: any): Observable<any> {
     return this.http.post(
-      this.API_URL,
+      `${this.BASE_URL}/api/parent/students`,
       student,
       { headers: this.getAuthHeaders() }
     );
   }
 
-  getMyStudents(): Observable<any[]> {
-    return this.http.get<any[]>(
-      this.API_URL,
+ 
+ /* ✅ PARENT STUDENTS: search + sort + pagination */
+  getMyStudents(
+    page: number,
+    size: number,
+    searchText?: string,
+    sortField: string = 'id',
+    direction: 'asc' | 'desc' = 'asc'
+  ): Observable<any> {
+
+    const params: string[] = [
+      `page=${page}`,
+      `size=${size}`,
+      `sort=${sortField},${direction}`
+    ];
+
+    if (searchText) {
+      params.push(`q=${encodeURIComponent(searchText)}`);
+    }
+
+    return this.http.get<any>(
+      `${this.BASE_URL}/api/parent/students?${params.join('&')}`,
       { headers: this.getAuthHeaders() }
     );
   }
 
-/* ✅ GET SINGLE STUDENT (FOR EDIT PREFILL) */
- 
-getStudentById(childId: number): Observable<any> {
-  return this.http.get<any>(
-    `http://localhost:8080/api/parent/students/${childId}`,
-    { headers: this.getAuthHeaders() }
-  );
-}
 
+  /* ✅ GET SINGLE STUDENT */
+  getStudentById(childId: number): Observable<any> {
+    return this.http.get<any>(
+      `${this.BASE_URL}/api/parent/students/${childId}`,
+      { headers: this.getAuthHeaders() }
+    );
+  }
 
-  /* ✅ UPDATE STUDENT (POST MAPPING – YOUR EXISTING API) */
-  
-updateChildFromParent(childId: number, student: any) {
-  return this.http.post(
-    `http://localhost:8080/api/parent/students/${childId}`,
-    student,
-    { headers: this.getAuthHeaders() }
-  );
-}
+  /* ✅ UPDATE STUDENT */
+  updateChildFromParent(childId: number, student: any): Observable<any> {
+    return this.http.post(
+      `${this.BASE_URL}/api/parent/students/${childId}`,
+      student,
+      { headers: this.getAuthHeaders() }
+    );
+  }
 
+  /* ✅ DELETE STUDENT */
+  deleteChildFromParent(childId: number): Observable<any> {
+    return this.http.delete(
+      `${this.BASE_URL}/api/parent/students/${childId}/delete`,
+      { headers: this.getAuthHeaders() }
+    );
+  }
 
-  //delete child
-  
-deleteChildFromParent(childId: number) {
-  return this.http.delete(
-    `http://localhost:8080/api/parent/students/${childId}/delete`,
-    {
-      
-      headers: this.getAuthHeaders(),
-      body: {}   // ✅ optional, but allowed
+  /* ✅ DOWNLOAD REPORT */
+  downloadStudentReport(childId: number): Observable<Blob> {
+    return this.http.get(
+      `${this.BASE_URL}/api/parent/students/${childId}/report`,
+      {
+        headers: this.getAuthHeaders(),
+        responseType: 'blob'
+      }
+    );
+  }
 
-    },
-  );
-}
-
-
-
-downloadStudentReport(childId: number) {
-  return this.http.get(
-    `http://localhost:8080/api/parent/students/${childId}/report`,
-    {
-      headers: this.getAuthHeaders(),
-      responseType: 'blob'
-    }
-  );
-}
-
-
+  // /* ✅ ADVANCED SEARCH + PAGINATION + SORT */
+  // searchStudents(
+  //   criteria: any,
+  //   page: number,
+  //   size: number,
+  //   sort: string,
+  //   direction: string
+  // ): Observable<any> {
+  //   return this.http.post<any>(
+  //     `${this.BASE_URL}/api/students/advanceSearch?page=${page}&size=${size}&sort=${sort},${direction}`,
+  //     criteria,
+  //     { headers: this.getAuthHeaders() }
+  //   );
+  // }
 
 }

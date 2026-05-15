@@ -1,0 +1,64 @@
+<div class="student-page">
+
+  <h2>Students</h2>
+
+  <!-- SEARCH -->
+  <div class="search-bar">
+    <input
+      type="text"
+      [(ngModel)]="searchName"
+      placeholder="Search by name..."
+    />
+    <button (click)="search()">Search</button>
+  </div>
+
+  <!-- LOADING -->
+  <div *ngIf="loading" class="loading">
+    Loading...
+  </div>
+
+
+
+  <!-- TABLE -->
+  <div class="table-container" *ngIf="!loading">
+
+    <div class="table-header">
+      <div>Name</div>
+      <div>Gender</div>
+      <div>Age</div>
+      <div>DOB</div>
+      <div>Age Group</div>
+      <div>Actions</div>
+    </div>
+
+    <div *ngIf="students.length === 0 && !loading" class="no-data">
+  No children found ✅
+</div>
+    <div class="table-row" *ngFor="let s of students">
+
+      <div>{{ s.name }}</div>
+      <div>{{ s.gender }}</div>
+      <div>{{ s.age }}</div>
+      <div>{{ s.dateOfBirth }}</div>
+      <div>{{ s.ageGroup }}</div>
+
+      <div class="actions">
+        <button class="edit-btn" (click)="editStudent(s)">Edit</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- PAGINATION -->
+  <div class="pagination">
+
+    <button (click)="prevPage()">Prev</button>
+
+    <span>Page {{ page + 1 }} of {{ totalPages }}</span>
+
+    <button (click)="nextPage()">Next</button>
+
+  </div>
+
+</div>  

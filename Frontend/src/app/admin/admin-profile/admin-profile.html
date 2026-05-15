@@ -1,0 +1,31 @@
+<div class="form-container">
+
+  <h2>Edit Admin Profile</h2>
+
+  <form (ngSubmit)="updateProfile()">
+
+    <input
+      type="text"
+      [(ngModel)]="name"
+      name="name"
+      placeholder="Admin Name"
+      required
+    />
+
+    <input
+      type="email"
+      [(ngModel)]="email"
+      name="email"
+      placeholder="Admin Email"
+      required
+    />
+
+    <!-- ✅ BUTTON GROUP -->
+    <div class="btn-group">
+  <button type="button" class="cancel-btn" (click)="cancel()">Cancel</button>
+  <button type="submit" class="update-btn">Update</button>
+    </div>
+
+  </form>
+
+</div>

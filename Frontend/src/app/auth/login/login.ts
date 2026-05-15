@@ -12,7 +12,7 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrl: './login.css',
 })
 export class LoginComponent {
-
+  useType :'PARENT'| 'ADMIN' = 'PARENT';
   email = '';
   password = '';
   errorMessage = '';
@@ -25,9 +25,18 @@ export class LoginComponent {
     private cdr: ChangeDetectorRef
   ) {}
 
+setRole(role :'PARENT' | 'ADMIN'){
+  this.useType = role;
+}
+
 login(): void {
-  this.authService.login(this.email, this.password).subscribe({
-    next: (res) => {
+
+  const loginCall = this.useType ==='ADMIN'
+      ?this.authService.adminLogin(this.email,this.password)
+      :this.authService.login(this.email,this.password);
+
+  loginCall.subscribe({
+    next: (res: {id:number, token: string; email: string; name: string; }) => {
       if (!res?.token) {
         this.showTimedError('Invalid email or password');
         return;
@@ -36,8 +45,13 @@ login(): void {
       localStorage.setItem('token', res.token);
       localStorage.setItem('email', res.email);
       localStorage.setItem('name', res.name);
+      localStorage.setItem('role',this.useType);
+      localStorage.setItem('userId',String(res.id));
 
-      this.router.navigate(['/dashboard']);
+      if(this.useType === 'ADMIN')
+        this.router.navigate(['/admin/dashboard'])
+      else
+        this.router.navigate(['/dashboard']);
     },
     error: () => {
       this.showTimedError('Invalid email or password');

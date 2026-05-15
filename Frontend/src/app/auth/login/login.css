@@ -1,0 +1,189 @@
+/* ===============================
+   PAGE SPLIT (FULLSCREEN)
+   =============================== */
+
+.split-page {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* ===============================
+   BACKGROUND HALVES
+   =============================== */
+
+.left-panel,
+.right-panel {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+}
+
+.left-panel {
+  left: 0;
+  background-color: #2563eb; /* blue */
+}
+
+.right-panel {
+  right: 0;
+  background-color: #ffffff; /* white */
+}
+
+/* ===============================
+   CENTER OVERLAY
+   =============================== */
+
+.card-wrapper {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* ===============================
+   LOGIN CARD
+   =============================== */
+
+.login-card {
+  width: 100%;
+  max-width: 360px;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+
+  box-shadow:
+    0 10px 35px rgba(0, 0, 0, 0.15);
+
+  pointer-events: auto;
+  z-index: 2;
+}
+
+/* ===============================
+   TITLE
+   =============================== */
+
+.title {
+  text-align: center;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #111827;
+}
+
+/* ===============================
+   INPUTS
+   =============================== */
+
+.input {
+  width: 100%;
+  margin-bottom: 0.9rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 0.95rem;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* ===============================
+   BUTTON
+   =============================== */
+
+.submit-btn {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #1e40af;
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===============================
+   ERROR
+   =============================== */
+
+.error-message {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: #dc2626;
+  text-align: center;
+}
+
+/* ===============================
+   FOOTER
+   =============================== */
+
+.footer-text {
+  margin-top: 1.4rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.footer-link {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+/* ===============================
+   MOBILE RESPONSIVE
+   =============================== */
+
+@media (max-width: 768px) {
+  .left-panel {
+    display: none;
+  }
+
+  .right-panel {
+    width: 100%;
+    left: 0;
+  }
+}
+
+
+.role-toggle {
+  display: flex;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.role-toggle button {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+  background: #e5e7eb;
+  font-weight: 600;
+}
+
+.role-toggle button.active {
+  background: #2563eb;
+  color: white;
+}
